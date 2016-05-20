@@ -1,0 +1,10 @@
+CREATE DATABASE todosdb
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+  
+CREATE TABLE `todos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descrizione` varchar(100) DEFAULT NULL,
+  `completato` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8
