@@ -45,10 +45,10 @@ var connection = mysql.createConnection({
     database: 'todosdb'
 });
 
-app.get('/todo', function (req, res) {
+app.get('/todos', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     // var query = "SELECT id, descrizione, IF(1 = completato, 'true', 'false') as completato from todos";
-    var query = "SELECT * from todos";
+    var query = "SELECT * from todos;";
     console.log(query);
     connection.query(query, function (err, rows, fields) {
         if (err)
@@ -68,9 +68,9 @@ app.get('/todo', function (req, res) {
 });
 
 
-app.get('/todo/:id', function (req, res) {
+app.get('/todos/:id', function (req, res) {
     console.log(req.params.id);
-    var query = "SELECT * from todos WHERE id = ?";
+    var query = "SELECT * from todos WHERE id = ?;";
     console.log(query);
     connection.query(query, [req.params.id], function (err, rows, fields) {
         if (err)
@@ -81,7 +81,7 @@ app.get('/todo/:id', function (req, res) {
 
 
 // TEST: curl -X POST http://localhost:3000
-app.post('/todo', function (req, res) {
+app.post('/todos', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     console.log("req.body=", req.body);
     console.log("req.params=", req.params);
@@ -92,7 +92,7 @@ app.post('/todo', function (req, res) {
             throw err;
         console.log(result.insertId);
         // res.json(result);
-        var query = "SELECT * from todos WHERE id = ?";
+        var query = "SELECT * from todos WHERE id = ?;";
         console.log(query);
         connection.query(query, result.insertId, function (err, rows, fields) {
             if (err)
@@ -103,7 +103,7 @@ app.post('/todo', function (req, res) {
 });
 
 
-app.put('/todo/:id', function (req, res) {
+app.put('/todos/:id', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     // req.accepts('application/json');
 
@@ -114,7 +114,7 @@ app.put('/todo/:id', function (req, res) {
     console.log("req.body=", req.body);
     console.log("req.params=", req.params);
 
-    var query = "UPDATE todos SET descrizione = ?, completato = ? WHERE id = ?";
+    var query = "UPDATE todos SET descrizione = ?, completato = ? WHERE id = ?;";
     console.log(query);
     connection.query(query, [req.body.descrizione, (req.body.completato) ? 1 : 0, req.params.id], function (err, result) {
         if (err)
@@ -127,11 +127,11 @@ app.put('/todo/:id', function (req, res) {
     // res.json(req.body);
 });
 
-app.delete('/todo/:id', function (req, res) {
+app.delete('/todos/:id', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     console.log("req.body=", req.body);
     console.log("req.params=", req.params);
-    var query = "DELETE from todos WHERE id = ?";
+    var query = "DELETE from todos WHERE id = ?;";
     console.log(query);
     connection.query(query, req.params.id, function (err, result) {
         if (err)
